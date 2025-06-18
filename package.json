@@ -1,5 +1,5 @@
 {
-	"name": "your-module-name",
+	"name": "companion-module-captionkit-api",
 	"version": "0.1.0",
 	"main": "dist/main.js",
 	"type": "module",
@@ -30,6 +30,7 @@
 		"@types/node": "^22.14.1",
 		"eslint": "^9.24.0",
 		"husky": "^9.1.7",
+		"jest": "^30.0.0",
 		"lint-staged": "^15.5.1",
 		"prettier": "^3.5.3",
 		"rimraf": "^6.0.1",
