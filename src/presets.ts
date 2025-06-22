@@ -4,12 +4,6 @@ import { combineRgb } from '@companion-module/base'
 import { SIMPLE_SIGNALS, LANGUAGES } from './constants.js'
 
 export function UpdatePresets(self: ModuleInstance): void {
-	const style = {
-		size: 14,
-		bgcolor: combineRgb(0, 0, 0),
-		color: combineRgb(255, 255, 255),
-	}
-
 	const presets: CompanionPresetDefinitions = {}
 
 	for (const signal of SIMPLE_SIGNALS) {
@@ -18,7 +12,9 @@ export function UpdatePresets(self: ModuleInstance): void {
 			category: 'Signals',
 			name: signal.buttonText,
 			style: {
-				...style,
+				size: 14,
+				bgcolor: combineRgb(0, 0, 0),
+				color: combineRgb(255, 255, 255),
 				text: signal.buttonText,
 			},
 			steps: [
@@ -45,7 +41,9 @@ export function UpdatePresets(self: ModuleInstance): void {
 			category: 'Languages',
 			name: language.label,
 			style: {
-				...style,
+				size: 12,
+				bgcolor: combineRgb(0, 0, 0),
+				color: combineRgb(255, 255, 255),
 				text: language.label,
 			},
 			steps: [
