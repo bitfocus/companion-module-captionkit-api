@@ -1,9 +1,10 @@
 {
+	"$schema": "../node_modules/@companion-module/base/assets/manifest.schema.json",
 	"id": "captionkit-api",
 	"name": "captionkit-api",
 	"shortname": "CaptionKit",
 	"description": "Control captionkit.io transcription and translation via their API",
-	"version": "1.0.1",
+	"version": "0.0.0",
 	"license": "MIT",
 	"repository": "git+https://github.com/bitfocus/companion-module-captionkit-api.git",
 	"bugs": "https://github.com/bitfocus/companion-module-captionkit-api/issues",
