@@ -1,10 +1,33 @@
+import { type CompanionPresetDefinition, type CompanionPresetDefinitions, combineRgb } from '@companion-module/base'
 import type { ModuleInstance } from './main.js'
-import type { CompanionPresetDefinition, CompanionPresetDefinitions } from '@companion-module/base'
-import { combineRgb } from '@companion-module/base'
-import { SIMPLE_SIGNALS, LANGUAGES } from './constants.js'
+import { SIMPLE_SIGNALS } from './constants.js'
 
 export function UpdatePresets(self: ModuleInstance): void {
-	const presets: CompanionPresetDefinitions = {}
+	const presets: CompanionPresetDefinitions = {
+		reloadLanguages: {
+			type: 'button',
+			category: 'Settings',
+			name: 'Reload languages',
+			style: {
+				size: 14,
+				bgcolor: combineRgb(0, 0, 0),
+				color: combineRgb(255, 255, 255),
+				text: 'Reload languages',
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'reloadLanguages',
+							options: {},
+						},
+					],
+					up: [],
+				},
+			],
+			feedbacks: [],
+		},
+	}
 
 	for (const signal of SIMPLE_SIGNALS) {
 		const preset: CompanionPresetDefinition = {
@@ -35,7 +58,8 @@ export function UpdatePresets(self: ModuleInstance): void {
 		presets[signal.id] = preset
 	}
 
-	for (const language of LANGUAGES) {
+	const languages = self.inputLanguages
+	for (const language of languages) {
 		const preset: CompanionPresetDefinition = {
 			type: 'button',
 			category: 'Languages',

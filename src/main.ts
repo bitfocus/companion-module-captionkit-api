@@ -1,13 +1,21 @@
-import { InstanceBase, runEntrypoint, InstanceStatus, SomeCompanionConfigField } from '@companion-module/base'
+import {
+	InstanceBase,
+	runEntrypoint,
+	InstanceStatus,
+	type SomeCompanionConfigField,
+	type DropdownChoice,
+} from '@companion-module/base'
 import { GetConfigFields, type ModuleConfig } from './config.js'
 import { UpdateVariableDefinitions } from './variables.js'
 import { UpgradeScripts } from './upgrades.js'
 import { UpdateActions } from './actions.js'
 import { UpdateFeedbacks } from './feedbacks.js'
 import { UpdatePresets } from './presets.js'
+import { getLanguagesFromAPI, LanguageType } from './languages.js'
 
 export class ModuleInstance extends InstanceBase<ModuleConfig> {
 	config!: ModuleConfig // Setup in init()
+	inputLanguages: DropdownChoice[] = [] // Cached list of languages fetched from API, used for populating dropdowns in actions and presets
 
 	constructor(internal: unknown) {
 		super(internal)
@@ -22,7 +30,12 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 		this.updateFeedbacks() // export feedbacks
 		this.updateVariableDefinitions() // export variable definitions
 		this.updatePresetDefintions() // export presets
+
+		this.inputLanguages = await getLanguagesFromAPI(this, LanguageType.INPUT)
+		this.updateActions() // export actions
+		this.updatePresetDefintions() // export presets
 	}
+
 	// When module gets deleted
 	async destroy(): Promise<void> {
 		this.log('debug', 'destroy')
