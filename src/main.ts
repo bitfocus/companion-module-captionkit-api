@@ -5,7 +5,7 @@ import {
 	type SomeCompanionConfigField,
 	type DropdownChoice,
 } from '@companion-module/base'
-import { GetConfigFields, type ModuleConfig } from './config.js'
+import { GetConfigFields, type ModuleConfig, type ModuleSecrets } from './config.js'
 import { UpdateVariableDefinitions } from './variables.js'
 import { UpgradeScripts } from './upgrades.js'
 import { UpdateActions } from './actions.js'
@@ -13,16 +13,18 @@ import { UpdateFeedbacks } from './feedbacks.js'
 import { UpdatePresets } from './presets.js'
 import { getLanguagesFromAPI, LanguageType } from './languages.js'
 
-export class ModuleInstance extends InstanceBase<ModuleConfig> {
+export class ModuleInstance extends InstanceBase<ModuleConfig, ModuleSecrets> {
 	config!: ModuleConfig // Setup in init()
+	secrets!: ModuleSecrets // Setup in init()
 	inputLanguages: DropdownChoice[] = [] // Cached list of languages fetched from API, used for populating dropdowns in actions and presets
 
 	constructor(internal: unknown) {
 		super(internal)
 	}
 
-	async init(config: ModuleConfig): Promise<void> {
+	async init(config: ModuleConfig, _isFirstInit: boolean, secrets: ModuleSecrets): Promise<void> {
 		this.config = config
+		this.secrets = secrets
 
 		this.updateStatus(InstanceStatus.Ok)
 
@@ -41,8 +43,9 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 		this.log('debug', 'destroy')
 	}
 
-	async configUpdated(config: ModuleConfig): Promise<void> {
+	async configUpdated(config: ModuleConfig, secrets: ModuleSecrets): Promise<void> {
 		this.config = config
+		this.secrets = secrets
 	}
 
 	// Return config fields for web config

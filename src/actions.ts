@@ -17,7 +17,7 @@ export function UpdateActions(self: ModuleInstance): void {
 				},
 			],
 			callback: async (event) => {
-				const response = await fetch(`https://api.captionkit.io/v2/signal?key=${self.config.key}`, {
+				const response = await fetch(`https://api.captionkit.io/v2/signal?key=${self.secrets.key}`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export function UpdateActions(self: ModuleInstance): void {
 				},
 			],
 			callback: async (event) => {
-				const response = await fetch(`https://api.captionkit.io/v2/signal?key=${self.config.key}`, {
+				const response = await fetch(`https://api.captionkit.io/v2/signal?key=${self.secrets.key}`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

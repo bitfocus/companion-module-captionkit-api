@@ -1,6 +1,10 @@
 import { type SomeCompanionConfigField } from '@companion-module/base'
 
 export interface ModuleConfig {
+	key?: string // Only when upgrading from a version that had the key in config - will be moved to secrets
+}
+
+export interface ModuleSecrets {
 	key: string
 }
 
@@ -20,7 +24,7 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 			width: 12,
 		},
 		{
-			type: 'textinput',
+			type: 'secret-text',
 			id: 'key',
 			label: 'CaptionKit API Key',
 			width: 12,
