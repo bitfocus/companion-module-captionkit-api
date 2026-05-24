@@ -1,7 +1,7 @@
-import type { ModuleInstance } from './main.js'
 import { InstanceStatus } from '@companion-module/base'
-// const constants = require('./constants')
-import { SIMPLE_SIGNALS, LANGUAGES } from './constants.js'
+import type { ModuleInstance } from './main.js'
+import { SIMPLE_SIGNALS } from './constants.js'
+import { LanguageType, getLanguagesFromAPI } from './languages.js'
 
 export function UpdateActions(self: ModuleInstance): void {
 	self.setActionDefinitions({
@@ -39,7 +39,7 @@ export function UpdateActions(self: ModuleInstance): void {
 					id: 'language',
 					type: 'dropdown',
 					label: 'Language',
-					choices: LANGUAGES,
+					choices: self.inputLanguages,
 					default: 'en',
 				},
 			],
@@ -57,6 +57,24 @@ export function UpdateActions(self: ModuleInstance): void {
 				if (response.status == 200) {
 					self.updateStatus(InstanceStatus.Ok)
 				} else {
+					self.updateStatus(InstanceStatus.ConnectionFailure)
+				}
+			},
+		},
+
+		reloadLanguages: {
+			name: 'Reload languages',
+			options: [],
+			callback: async () => {
+				try {
+					const languages = await getLanguagesFromAPI(self, LanguageType.INPUT)
+					self.inputLanguages = languages
+					self.updateActions() // export actions
+					self.updatePresetDefintions() // export presets
+					self.updateStatus(InstanceStatus.Ok)
+					self.log('debug', 'Successfully reloaded languages from API')
+				} catch (error) {
+					self.log('error', `Failed to fetch languages from API: ${error}`)
 					self.updateStatus(InstanceStatus.ConnectionFailure)
 				}
 			},
