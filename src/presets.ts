@@ -6,7 +6,7 @@ export function UpdatePresets(self: ModuleInstance): void {
 	const presets: CompanionPresetDefinitions = {
 		reloadLanguages: {
 			type: 'button',
-			category: 'Settings',
+			category: 'Utilities',
 			name: 'Reload languages',
 			style: {
 				size: 14,
