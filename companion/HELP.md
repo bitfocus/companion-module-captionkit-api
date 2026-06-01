@@ -13,3 +13,8 @@ paste the API key.
 
 There are CaptionKit presets provided for all signals, or you can use the "Send signal" and "Set transcription
 language" actions as part of more complex buttons.
+
+### Major Changes
+
+- v1.0.x - Initial release
+- v1.1.x - Obtain list of input languages from CaptionKit's API, rather than them being hard-coded
