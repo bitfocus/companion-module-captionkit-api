@@ -1,6 +1,6 @@
 import { InstanceStatus } from '@companion-module/base'
 import type { ModuleInstance } from './main.js'
-import { SIMPLE_SIGNALS } from './constants.js'
+import { API_BASE, SIMPLE_SIGNALS } from './constants.js'
 import { LanguageType, getLanguagesFromAPI } from './languages.js'
 
 export function UpdateActions(self: ModuleInstance): void {
@@ -17,7 +17,7 @@ export function UpdateActions(self: ModuleInstance): void {
 				},
 			],
 			callback: async (event) => {
-				const response = await fetch(`https://api.captionkit.io/v2/signal?key=${self.secrets.key}`, {
+				const response = await fetch(`${API_BASE}/signal?key=${self.secrets.key}`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export function UpdateActions(self: ModuleInstance): void {
 				},
 			],
 			callback: async (event) => {
-				const response = await fetch(`https://api.captionkit.io/v2/signal?key=${self.secrets.key}`, {
+				const response = await fetch(`${API_BASE}/signal?key=${self.secrets.key}`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

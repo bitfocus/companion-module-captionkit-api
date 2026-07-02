@@ -1,5 +1,6 @@
 import { InstanceStatus, type DropdownChoice } from '@companion-module/base'
 import type { ModuleInstance } from './main.js'
+import { API_BASE } from './constants.js'
 
 export enum LanguageType {
 	INPUT = 'input',
@@ -7,7 +8,7 @@ export enum LanguageType {
 }
 
 export async function getLanguagesFromAPI(self: ModuleInstance, type: LanguageType): Promise<DropdownChoice[]> {
-	const json = await (await fetch(`https://api.captionkit.io/v2/languages/${type}`)).json()
+	const json = await (await fetch(`${API_BASE}/languages/${type}`)).json()
 	try {
 		const languages = Object.entries(json as Record<string, string>).map(([id, label]) => ({ id, label }))
 		self.log('debug', `Fetched ${type} languages: ${JSON.stringify(languages)}`)

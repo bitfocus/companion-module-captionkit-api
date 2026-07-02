@@ -4,6 +4,35 @@ import { SIMPLE_SIGNALS } from './constants.js'
 
 export function UpdatePresets(self: ModuleInstance): void {
 	const presets: CompanionPresetDefinitions = {
+		captionStatus: {
+			type: 'button',
+			category: 'Status',
+			name: 'Caption status',
+			style: {
+				size: 14,
+				bgcolor: combineRgb(0, 0, 0),
+				color: combineRgb(102, 102, 102),
+				text: 'Captions\\nOFFLINE',
+			},
+			steps: [
+				{
+					down: [],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'session_live',
+					options: {},
+					style: {
+						bgcolor: combineRgb(204, 0, 0),
+						color: combineRgb(255, 255, 255),
+						text: 'Captions\\nLIVE',
+					},
+				},
+			],
+		},
+
 		reloadLanguages: {
 			type: 'button',
 			category: 'Utilities',
@@ -29,6 +58,9 @@ export function UpdatePresets(self: ModuleInstance): void {
 		},
 	}
 
+	// Start/stop buttons double as a tally light for the live session
+	const liveTallySignals = ['captions:stream:start', 'captions:stream:stop']
+
 	for (const signal of SIMPLE_SIGNALS) {
 		const preset: CompanionPresetDefinition = {
 			type: 'button',
@@ -53,7 +85,18 @@ export function UpdatePresets(self: ModuleInstance): void {
 					up: [],
 				},
 			],
-			feedbacks: [],
+			feedbacks: liveTallySignals.includes(signal.id as string)
+				? [
+						{
+							feedbackId: 'session_live',
+							options: {},
+							style: {
+								bgcolor: combineRgb(204, 0, 0),
+								color: combineRgb(255, 255, 255),
+							},
+						},
+					]
+				: [],
 		}
 		presets[signal.id] = preset
 	}

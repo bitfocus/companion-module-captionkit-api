@@ -1,5 +1,7 @@
 import type { DropdownChoice } from '@companion-module/base'
 
+export const API_BASE = 'https://api.captionkit.com/v2'
+
 export interface DropdownChoiceWithButtonText extends DropdownChoice {
 	buttonText: string
 }

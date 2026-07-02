@@ -2,6 +2,7 @@ import { type SomeCompanionConfigField } from '@companion-module/base'
 
 export interface ModuleConfig {
 	key?: string // Only when upgrading from a version that had the key in config - will be moved to secrets
+	pollInterval?: number // Status poll interval in seconds
 }
 
 export interface ModuleSecrets {
@@ -28,6 +29,15 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 			id: 'key',
 			label: 'CaptionKit API Key',
 			width: 12,
+		},
+		{
+			type: 'number',
+			id: 'pollInterval',
+			label: 'Status poll interval (seconds)',
+			default: 5,
+			min: 2,
+			max: 60,
+			width: 6,
 		},
 	]
 }
