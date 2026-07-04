@@ -12,11 +12,16 @@ export function UpdatePresets(self: ModuleInstance): void {
 				size: 14,
 				bgcolor: combineRgb(0, 0, 0),
 				color: combineRgb(102, 102, 102),
-				text: 'Captions\\nOFFLINE',
+				text: `Captions\\n$(captionkit-api:status_text)`,
 			},
 			steps: [
 				{
-					down: [],
+					down: [
+						{
+							actionId: 'toggle_captions',
+							options: {},
+						},
+					],
 					up: [],
 				},
 			],
@@ -27,7 +32,6 @@ export function UpdatePresets(self: ModuleInstance): void {
 					style: {
 						bgcolor: combineRgb(204, 0, 0),
 						color: combineRgb(255, 255, 255),
-						text: 'Captions\\nLIVE',
 					},
 				},
 			],
