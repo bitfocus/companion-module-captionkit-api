@@ -33,6 +33,8 @@ export class ModuleInstance extends InstanceBase<ModuleConfig, ModuleSecrets> {
 
 		this.updateStatus(InstanceStatus.Connecting)
 
+		this.inputLanguages = await getLanguagesFromAPI(this, LanguageType.INPUT)
+
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
 		this.updateVariableDefinitions() // export variable definitions
@@ -40,7 +42,6 @@ export class ModuleInstance extends InstanceBase<ModuleConfig, ModuleSecrets> {
 
 		this.startStatusPolling()
 
-		this.inputLanguages = await getLanguagesFromAPI(this, LanguageType.INPUT)
 		this.updateActions() // export actions
 		this.updatePresetDefintions() // export presets
 	}

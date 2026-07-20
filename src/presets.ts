@@ -130,7 +130,18 @@ export function UpdatePresets(self: ModuleInstance): void {
 					up: [],
 				},
 			],
-			feedbacks: [],
+			feedbacks: [
+				{
+					feedbackId: 'transcription_language_live',
+					options: {
+						language: language.id,
+					},
+					style: {
+						bgcolor: combineRgb(204, 0, 0),
+						color: combineRgb(255, 255, 255),
+					},
+				},
+			],
 		}
 
 		presets[language.id] = preset
