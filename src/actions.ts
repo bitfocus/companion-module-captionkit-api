@@ -5,6 +5,26 @@ import { LanguageType, getLanguagesFromAPI } from './languages.js'
 
 export function UpdateActions(self: ModuleInstance): void {
 	self.setActionDefinitions({
+		toggle_captions: {
+			name: 'Toggle Captions',
+			options: [],
+			callback: async () => {
+				const signal = self.broadcastLive ? 'captions:stream:stop' : 'captions:stream:start'
+
+				const response = await fetch(`${API_BASE}/signal?key=${self.secrets.key}`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ event: signal }),
+				})
+				if (response.status == 200) {
+					self.updateStatus(InstanceStatus.Ok)
+				} else {
+					self.updateStatus(InstanceStatus.ConnectionFailure)
+				}
+			},
+		},
 		send_signal: {
 			name: 'Send Signal',
 			options: [
