@@ -11,7 +11,7 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 				color: combineRgb(255, 255, 255),
 			},
 			options: [],
-			callback: () => self.broadcastLive,
+			callback: () => !!self.broadcastLive,
 		},
 		transcription_language_live: {
 			name: 'Transcription language is live',
@@ -30,8 +30,35 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 				},
 			],
 			callback: (feedback) => {
-				if (!feedback.options.language) return false
-				return self.broadcastLive && self.broadcastStatus?.options.language === feedback.options.language
+				const language = feedback.options.language
+
+				if (typeof language !== 'string' || !language) return false
+
+				return !!self.broadcastLive && self.broadcastStatus?.options.language === language
+			},
+		},
+		translation_language_live: {
+			name: 'Translation language is live',
+			type: 'boolean',
+			defaultStyle: {
+				bgcolor: combineRgb(0, 204, 0),
+				color: combineRgb(255, 255, 255),
+			},
+			options: [
+				{
+					id: 'language',
+					type: 'dropdown',
+					label: 'Language',
+					choices: self.inputLanguages,
+					default: 'en',
+				},
+			],
+			callback: (feedback) => {
+				const language = feedback.options.language
+
+				if (typeof language !== 'string' || !language) return false
+
+				return !!self.broadcastLive && !!self.broadcastStatus?.options.translations?.includes(language)
 			},
 		},
 	})

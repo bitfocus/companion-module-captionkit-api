@@ -105,11 +105,10 @@ export function UpdatePresets(self: ModuleInstance): void {
 		presets[signal.id] = preset
 	}
 
-	const languages = self.inputLanguages
-	for (const language of languages) {
+	for (const language of self.inputLanguages) {
 		const preset: CompanionPresetDefinition = {
 			type: 'button',
-			category: 'Languages',
+			category: 'Transcription Languages',
 			name: language.label,
 			style: {
 				size: 12,
@@ -145,6 +144,40 @@ export function UpdatePresets(self: ModuleInstance): void {
 		}
 
 		presets[language.id] = preset
+	}
+
+	for (const language of self.outputLanguages) {
+		const preset: CompanionPresetDefinition = {
+			type: 'button',
+			category: 'Translation Languages',
+			name: `${language.label} Translation`,
+			style: {
+				size: 12,
+				bgcolor: combineRgb(0, 0, 0),
+				color: combineRgb(255, 255, 255),
+				text: `${language.label}\nTranslation`,
+			},
+			steps: [
+				{
+					down: [],
+					up: [],
+				},
+			],
+			feedbacks: [
+				{
+					feedbackId: 'translation_language_live',
+					options: {
+						language: language.id,
+					},
+					style: {
+						bgcolor: combineRgb(0, 204, 0),
+						color: combineRgb(255, 255, 255),
+					},
+				},
+			],
+		}
+
+		presets[`translation_${language.id}`] = preset
 	}
 
 	self.setPresetDefinitions(presets)
