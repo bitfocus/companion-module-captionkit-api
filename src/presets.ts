@@ -108,7 +108,7 @@ export function UpdatePresets(self: ModuleInstance): void {
 	for (const language of self.inputLanguages) {
 		const preset: CompanionPresetDefinition = {
 			type: 'button',
-			category: 'Transcription Languages',
+			category: 'Speaker Languages',
 			name: language.label,
 			style: {
 				size: 12,
@@ -131,7 +131,7 @@ export function UpdatePresets(self: ModuleInstance): void {
 			],
 			feedbacks: [
 				{
-					feedbackId: 'transcription_language_live',
+					feedbackId: 'speaker_language_live',
 					options: {
 						language: language.id,
 					},

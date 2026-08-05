@@ -53,7 +53,7 @@ export function UpdateActions(self: ModuleInstance): void {
 		},
 
 		language_select: {
-			name: 'Set transcription language',
+			name: 'Set speaker language',
 			options: [
 				{
 					id: 'language',
