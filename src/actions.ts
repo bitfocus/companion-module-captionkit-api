@@ -87,8 +87,8 @@ export function UpdateActions(self: ModuleInstance): void {
 			options: [],
 			callback: async () => {
 				try {
-					const languages = await getLanguagesFromAPI(self, LanguageType.INPUT)
-					self.inputLanguages = languages
+					self.inputLanguages = await getLanguagesFromAPI(self, LanguageType.INPUT)
+					self.outputLanguages = await getLanguagesFromAPI(self, LanguageType.OUTPUT)
 					self.updateActions() // export actions
 					self.updatePresetDefintions() // export presets
 					self.updateStatus(InstanceStatus.Ok)

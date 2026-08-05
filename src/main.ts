@@ -18,6 +18,7 @@ export class ModuleInstance extends InstanceBase<ModuleConfig, ModuleSecrets> {
 	config!: ModuleConfig // Setup in init()
 	secrets!: ModuleSecrets // Setup in init()
 	inputLanguages: DropdownChoice[] = [] // Cached list of languages fetched from API, used for populating dropdowns in actions and presets
+	outputLanguages: DropdownChoice[] = [] // Cached list of languages fetched from API, used for populating dropdowns in actions and presets
 	broadcastLive = false // Latest live flag from /v2/me/status
 	broadcastStatus: BroadcastStatus | null = null // Latest status payload, null when offline
 	statusSnapshot = '' // Change-detection key so polls only update variables/feedbacks when something changed
@@ -34,6 +35,7 @@ export class ModuleInstance extends InstanceBase<ModuleConfig, ModuleSecrets> {
 		this.updateStatus(InstanceStatus.Connecting)
 
 		this.inputLanguages = await getLanguagesFromAPI(this, LanguageType.INPUT)
+		this.outputLanguages = await getLanguagesFromAPI(this, LanguageType.OUTPUT)
 
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
