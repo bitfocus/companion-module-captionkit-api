@@ -13,8 +13,8 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 			options: [],
 			callback: () => !!self.broadcastLive,
 		},
-		transcription_language_live: {
-			name: 'Transcription language is live',
+		speaker_language_live: {
+			name: 'Speaker language is live',
 			type: 'boolean',
 			defaultStyle: {
 				bgcolor: combineRgb(204, 0, 0),
