@@ -8,8 +8,10 @@ export enum LanguageType {
 }
 
 export async function getLanguagesFromAPI(self: ModuleInstance, type: LanguageType): Promise<DropdownChoice[]> {
-	const json = await (await fetch(`${API_BASE}/languages/${type}`)).json()
 	try {
+		const response = await fetch(`${API_BASE}/languages/${type}`)
+		if (!response.ok) throw new Error(`HTTP ${response.status}`)
+		const json = await response.json()
 		const languages = Object.entries(json as Record<string, string>).map(([id, label]) => ({ id, label }))
 		self.log('debug', `Fetched ${type} languages: ${JSON.stringify(languages)}`)
 
